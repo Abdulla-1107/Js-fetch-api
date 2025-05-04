@@ -4,7 +4,7 @@ function hideLoading() {
   document.querySelector(".loading").style.display = "none";
 }
 
-function showSkeletons(count = 15) {
+function showSkeletons(count = 100) {
   const container = document.querySelector(".container");
   container.innerHTML = "";
   for (let i = 0; i < count; i++) {
@@ -49,6 +49,14 @@ function renderProductData(data) {
   container.appendChild(fragment);
 }
 
+const Category = document.querySelector('.category')
+function renderCategory(data){
+    data.forEach((item) => {
+        let li = document.createElement("li")
+        li.innerHTML = item
+        Category.appendChild(li)
+    })
+}
 
 function fetchData(endpoint) {
   showSkeletons(); 
@@ -70,5 +78,6 @@ function fetchData(endpoint) {
 }
 
 window.addEventListener("load", () => {
-  fetchData("products");
+  fetchData("products/category-list", renderCategory)
+  fetchData("products?limit=100");
 });
